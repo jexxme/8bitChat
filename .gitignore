@@ -1,0 +1,16 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+
+# Virtual environment
+venv/
+
+# SQLite database file (if you're using SQLite)
+*.db
+
+# Environment variables
+.env
+
+# Flask stuff
+instance/
+.webassets-cache

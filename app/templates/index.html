@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Chat App</title>
+    <!-- minify -->
+    <link href="https://unpkg.com/nes.css@2.3.0/css/nes.min.css" rel="stylesheet" />
+</head>
+
+<body>
+    <div id="chat-container">
+        <!-- Chat messages display area -->
+        <div id="messages"></div>
+
+        <!-- Message input -->
+        <input type="text" id="message-input" placeholder="Type a message...">
+        <button onclick="sendMessage()">Send</button>
+    </div>
+
+    <!-- Include Socket.IO JavaScript Library -->	
+    <script src="https://cdn.socket.io/4.7.2/socket.io.min.js" integrity="sha384-mZLF4UVrpi/QTWPA7BjNPEnkIfRFn4ZEO3Qt/HFklTJBj/gBOV8G3HcKn4NfQblz" crossorigin="anonymous"></script>
+
+    <!-- Include JavaScript Files -->
+    <script type="text/javascript" src="{{ url_for('static', filename='js/chat.js') }}"></script>
+
+</body>
+
+</html>
