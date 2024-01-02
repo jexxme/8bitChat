@@ -5,6 +5,10 @@
     <title>Chat App</title>
     <!-- minify -->
     <link href="https://unpkg.com/nes.css@2.3.0/css/nes.min.css" rel="stylesheet" />
+    <!-- Include custom.css -->
+    <link href="{{ url_for('static', filename='css/custom.css') }}" rel="stylesheet" />
+    <!-- Include static/press-start-2p.ttf -->
+    <link href="https://fonts.cdnfonts.com/css/press-start-2p" rel="stylesheet">
 </head>
 
 <body>
@@ -16,6 +20,16 @@
         <input type="text" id="message-input" placeholder="Type a message...">
         <button onclick="sendMessage()">Send</button>
     </div>
+
+    <div id="nameModal" class="nes-dialog" style="display:none;">
+        <form id="nameForm">
+            <p>Please enter your name:</p>
+            <div class="nes-field">
+                <input type="text" id="nameInput" class="nes-input" required>
+            </div>
+            <button type="submit" class="nes-btn is-primary">Submit</button>
+        </form>
+    </div>    
 
     <!-- Include Socket.IO JavaScript Library -->	
     <script src="https://cdn.socket.io/4.7.2/socket.io.min.js" integrity="sha384-mZLF4UVrpi/QTWPA7BjNPEnkIfRFn4ZEO3Qt/HFklTJBj/gBOV8G3HcKn4NfQblz" crossorigin="anonymous"></script>
