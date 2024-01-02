@@ -2,41 +2,57 @@
 <html>
 
 <head>
-    <title>Chat App</title>
+    <title>8bitChat</title>
     <!-- minify -->
     <link href="https://unpkg.com/nes.css@2.3.0/css/nes.min.css" rel="stylesheet" />
     <!-- Include custom.css -->
     <link href="{{ url_for('static', filename='css/custom.css') }}" rel="stylesheet" />
     <!-- Include static/press-start-2p.ttf -->
     <link href="https://fonts.cdnfonts.com/css/press-start-2p" rel="stylesheet">
+    <!-- Include Favicon -->
+    <link rel="icon" href="{{ url_for('static', filename='images/favicon.ico') }}" type="image/x-icon" />
+
 </head>
 
 <body>
-    <div id="chat-container">
-        <!-- Chat messages display area -->
-        <div id="messages"></div>
+    <header class="nes-container is-centered">
+        <img src="{{ url_for('static', filename='images/200w.gif') }}" alt="Logo" style="width: 100px; height: auto;"> <!-- Adjust width as needed -->
+        <h2>8bitChat</h2>
+        <div id="user-count" class="nes-text is-primary">Users online: 0</div>
+    </header>    
 
-        <!-- Message input -->
-        <input type="text" id="message-input" placeholder="Type a message...">
-        <button onclick="sendMessage()">Send</button>
-    </div>
+    <section class="nes-container with-title is-centered chat-room">
+        <p class="title">Chat Room</p>
+        <div id="messages" class="message-container">
+          <!-- Messages will go here -->
+        </div>
+        <div class="nes-field is-inline">
+          <input type="text" id="message-input" class="nes-input" placeholder="Type a message..." />
+          <button type="button" class="nes-btn is-primary" onclick="sendMessage()">Send</button>
+        </div>
+      </section>
+      
 
     <div id="nameModal" class="nes-dialog" style="display:none;">
         <form id="nameForm">
-            <p>Please enter your name:</p>
             <div class="nes-field">
+                <label for="nameInput">Please enter your name:</label>
                 <input type="text" id="nameInput" class="nes-input" required>
             </div>
             <button type="submit" class="nes-btn is-primary">Submit</button>
         </form>
-    </div>    
-
-    <!-- Include Socket.IO JavaScript Library -->	
-    <script src="https://cdn.socket.io/4.7.2/socket.io.min.js" integrity="sha384-mZLF4UVrpi/QTWPA7BjNPEnkIfRFn4ZEO3Qt/HFklTJBj/gBOV8G3HcKn4NfQblz" crossorigin="anonymous"></script>
-
-    <!-- Include JavaScript Files -->
-    <script type="text/javascript" src="{{ url_for('static', filename='js/chat.js') }}"></script>
-
+    </div>
 </body>
+
+
+<!-- Include Socket.IO JavaScript Library -->
+<script src="https://cdn.socket.io/4.7.2/socket.io.min.js"
+    integrity="sha384-mZLF4UVrpi/QTWPA7BjNPEnkIfRFn4ZEO3Qt/HFklTJBj/gBOV8G3HcKn4NfQblz"
+    crossorigin="anonymous"></script>
+
+<!-- Include JavaScript Files -->
+<script type="text/javascript" src="{{ url_for('static', filename='js/chat.js') }}"></script>
+
+
 
 </html>
