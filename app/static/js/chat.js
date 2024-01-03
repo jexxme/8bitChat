@@ -25,6 +25,7 @@ socket.on('receive_message', function(data) {
     // Create the message wrapper
     var messageWrapper = document.createElement('div');
     messageWrapper.classList.add('message');
+    messageWrapper.classList.add('message-pop-in');
 
     // Get the current user's name from localStorage
     var currentUsername = localStorage.getItem('chatUserName');
@@ -69,7 +70,7 @@ socket.on('user_count', function(data) {
 });
 
 socket.on('user_joined', function(data) {
-    var joinedMessage = '<p class="user-joined-message"><i>' + data.name + ' has joined the chat</i></p>';
+    var joinedMessage = '<p class="user-joined-message message-pop-in"><i>' + data.name + ' has joined the chat</i></p>';
     document.getElementById('messages').innerHTML += joinedMessage;
 });
 
