@@ -1,9 +1,19 @@
-var socket = io.connect('http://' + document.domain + ':' + location.port);
+var socket;
+if (window.location.protocol === 'https:') {
+    socket = io.connect('https://' + document.domain + ':' + location.port, {secure: true});
+} else {
+    socket = io.connect('http://' + document.domain + ':' + location.port);
+}
 
 function sendMessage() {
-    var message = document.getElementById('message-input').value;
+    var messageInput = document.getElementById('message-input');
+    var message = messageInput.value;
     var name = localStorage.getItem('chatUserName') || 'Anonymous';
-    socket.emit('send_message', { 'message': message, 'name': name });
+    
+    if (message.trim() !== '') {
+        socket.emit('send_message', { 'message': message, 'name': name });
+        messageInput.value = ''; // Clear the input field after sending
+    }
 }
 
 socket.on('receive_message', function(data) {
@@ -40,11 +50,18 @@ socket.on('receive_message', function(data) {
     messagesContainer.appendChild(messageWrapper);
 
     // Scroll to the latest message
+    var messagesContainer = document.getElementById('messages');
     messagesContainer.scrollTop = messagesContainer.scrollHeight;
 });
 
 
-  
+// Enter key event listener
+document.getElementById('message-input').addEventListener('keypress', function(event) {
+    if (event.key === 'Enter') {
+        sendMessage();
+        event.preventDefault(); // Prevent default to avoid line break in input field
+    }
+});
   
 
 socket.on('user_count', function(data) {
