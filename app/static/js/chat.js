@@ -69,8 +69,10 @@ socket.on('user_count', function(data) {
 });
 
 socket.on('user_joined', function(data) {
-    document.getElementById('messages').innerHTML += '<p><i>' + data.name + ' has joined the chat</i></p>';
+    var joinedMessage = '<p class="user-joined-message"><i>' + data.name + ' has joined the chat</i></p>';
+    document.getElementById('messages').innerHTML += joinedMessage;
 });
+
 
 
 
