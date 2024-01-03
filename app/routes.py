@@ -5,13 +5,20 @@ from flask_socketio import SocketIO, emit
 from datetime import datetime
 import json
 from flask_socketio import SocketIO, emit, join_room, leave_room
+import os
+from dotenv import load_dotenv
+
+load_dotenv()  # This loads the .env file at the application start
+
+# Now you can access the key with os.getenv
+google_analytics_key = os.getenv('GOOGLE_ANALYTICS_KEY')
 
 
 connected_users = 0
 
 @app.route('/')
 def index():
-    return render_template('index.html')
+    return render_template('index.html', google_analytics_key=google_analytics_key)
 
 @socketio.on('connect')
 def handle_connect():
