@@ -26,6 +26,7 @@ function unlockAudioContext() {
     }
 }
 
+
 // Add event listener for the first user interaction
 document.addEventListener('click', unlockAudioContext);
 
