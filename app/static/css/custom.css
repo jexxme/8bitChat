@@ -15,9 +15,25 @@ header {
 }
 
 .chat-room {
-    margin: 0 auto;
-    max-width: 800px;
-    /* Set the max width for the chat room */
+    position: absolute; /* Positioning relative to the nearest positioned ancestor */
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 90%; /* Set the width as needed */
+    max-width: 800px; /* Maximum width */
+  }
+  
+  /* Ensure the body is full height and no margin to avoid misalignment */
+  html, body {
+    height: 100%;
+    margin: 0;
+  }
+  
+  .logo {
+    width: 100px; /* Adjust width as needed */
+    height: auto; /* Maintain aspect ratio */
+    display: block; /* To center the image in the container */
+    margin: 0 auto; /* Center the image horizontally */
 }
 
 .message-container {
@@ -150,27 +166,7 @@ header {
     flex-direction: column;
 }
 
-.chat-room {
-    position: absolute; /* Positioning relative to the nearest positioned ancestor */
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 90%; /* Set the width as needed */
-    max-width: 800px; /* Maximum width */
-  }
-  
-  /* Ensure the body is full height and no margin to avoid misalignment */
-  html, body {
-    height: 100%;
-    margin: 0;
-  }
-  
-  .logo {
-    width: 100px; /* Adjust width as needed */
-    height: auto; /* Maintain aspect ratio */
-    display: block; /* To center the image in the container */
-    margin: 0 auto; /* Center the image horizontally */
-}
+
 
 
 #overlay {
