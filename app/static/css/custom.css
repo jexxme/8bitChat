@@ -36,23 +36,6 @@ html, body {
     margin: 0 auto;
 }
 
-/* Responsive styles for smaller devices */
-@media (max-width: 600px) {
-    .chat-room {
-        position: static; /* Use static positioning for smaller screens */
-        transform: none; /* No need to translate, as it will fill the screen */
-        width: 100%; /* Full width */
-        max-width: none; /* No maximum width */
-    }
-
-    
-
-    /* Adjust the logo size if needed */
-    .logo {
-        width: 100px; /* Smaller logo for smaller screens */
-    }
-}
-
 #username-display {
     margin-top: 10px; /* Spacing from the elements above */
 }
@@ -70,6 +53,24 @@ html, body {
     padding: 1rem;
     margin-bottom: 1rem;
 }
+/* Responsive styles for smaller devices */
+@media (max-width: 600px) {
+    .chat-room {
+        position: static; /* Use static positioning for smaller screens */
+        transform: none; /* No need to translate, as it will fill the screen */
+        width: 100%; /* Full width */
+        max-width: none; /* No maximum width */
+    }
+
+    
+
+    /* Adjust the logo size if needed */
+    .logo {
+        width: 100px; /* Smaller logo for smaller screens */
+    }
+}
+
+
 
 .message {
     display: flex;
