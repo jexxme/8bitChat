@@ -34,6 +34,43 @@ var joinSound = new Audio("/static/join.mp3"); // Make sure the path is correct
 
 var popSound = new Audio("/static/pop.mp3"); // Make sure the path is correct
 
+document.addEventListener('DOMContentLoaded', function () {
+    var storedName = localStorage.getItem('chatUserName');
+    if (!storedName) {
+        console.log('No username found in localStorage');
+        // Show the name modal if the user has not set a username
+        document.getElementById('nameModal').style.display = 'block';
+        document.getElementById('overlay').style.display = 'block'; // Show overlay
+        document.getElementById('nameInput').focus(); // Automatically focus the input field
+    } else
+
+    console.log('Username found in localStorage: ' + storedName);
+
+    // Update the username display
+    updateUsernameDisplay(storedName);
+
+    document.getElementById('nameForm').addEventListener('submit', function (event) {
+        event.preventDefault();
+        var name = document.getElementById('nameInput').value;
+        localStorage.setItem('chatUserName', name);
+        document.getElementById('nameModal').style.display = 'none';
+        document.getElementById('overlay').style.display = 'none'; // Hide overlay
+
+        updateUsernameDisplay(name);  // Update when new name is submitted
+
+        // Emit the new_user event with the user's name
+        socket.emit('new_user', { 'name': name });
+
+        // Clear the input field
+        document.getElementById('nameInput').value = '';
+
+        // Automatically focus the input field
+        document.getElementById('message-input').focus();
+        
+    });
+
+
+});
 
 function sendMessage() {
     var messageInput = document.getElementById('message-input');
@@ -43,6 +80,7 @@ function sendMessage() {
     if (message.trim() !== '') {
         socket.emit('send_message', { 'message': message, 'name': name });
         messageInput.value = ''; // Clear the input field after sending
+        messageInput.focus(); // Automatically focus the input field
     }
 }
 
@@ -114,36 +152,8 @@ socket.on('user_joined', function (data) {
     document.getElementById('messages').innerHTML += joinedMessage;
 });
 
-
-
-
-
 function updateUsernameDisplay(name) {
     document.getElementById('username').textContent = name || '';
 }
-
-document.addEventListener('DOMContentLoaded', function () {
-    var storedName = localStorage.getItem('chatUserName');
-    if (!storedName) {
-        document.getElementById('nameModal').style.display = 'block';
-        document.getElementById('overlay').style.display = 'block'; // Show overlay
-        document.getElementById('nameInput').focus(); // Automatically focus the input field
-    }
-
-    document.getElementById('nameForm').addEventListener('submit', function (event) {
-        event.preventDefault();
-        var name = document.getElementById('nameInput').value;
-        localStorage.setItem('chatUserName', name);
-        document.getElementById('nameModal').style.display = 'none';
-        document.getElementById('overlay').style.display = 'none'; // Hide overlay
-
-        updateUsernameDisplay(name);  // Update when new name is submitted
-
-        // Emit the new_user event with the user's name
-        socket.emit('new_user', { 'name': name });
-    });
-
-});
-
 
 
