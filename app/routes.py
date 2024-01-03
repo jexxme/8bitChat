@@ -12,14 +12,6 @@ connected_users = 0
 def index():
     return render_template('index.html')
 
-@socketio.on('send_message')
-def handle_send_message_event(data):
-    # Assuming 'data' dictionary has 'username' and 'message' fields
-    emit('receive_message', {
-        'message': data['message'],
-    'sender': data['name']
-    }, broadcast=True)
-
 @socketio.on('connect')
 def handle_connect():
     global connected_users
@@ -36,3 +28,11 @@ def handle_disconnect():
 def handle_new_user(data):
     name = data['name']
     emit('user_joined', {'name': name}, broadcast=True)
+
+@socketio.on('send_message')
+def handle_send_message_event(data):
+    # Assuming 'data' dictionary has 'username' and 'message' fields
+    emit('receive_message', {
+        'message': data['message'],
+    'sender': data['name']
+    }, broadcast=True)
