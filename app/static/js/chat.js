@@ -5,6 +5,35 @@ if (window.location.protocol === 'https:') {
     socket = io.connect('http://' + document.domain + ':' + location.port);
 }
 
+
+// Flag to track if the audio context is unlocked
+let audioContextUnlocked = false;
+
+function unlockAudioContext() {
+    if (!audioContextUnlocked) {
+        // Play and immediately pause the join sound
+        joinSound.play().then(() => {
+            joinSound.pause();
+            popSound.play().then(() => {
+                popSound.pause();
+                audioContextUnlocked = true;
+                // Remove the event listener once the audio context is unlocked
+                document.removeEventListener('click', unlockAudioContext);
+            });
+        }).catch((error) => {
+            console.error('Audio context unlock failed', error);
+        });
+    }
+}
+
+// Add event listener for the first user interaction
+document.addEventListener('click', unlockAudioContext);
+
+var joinSound = new Audio("/static/join.mp3"); // Make sure the path is correct
+
+var popSound = new Audio("/static/pop.mp3"); // Make sure the path is correct
+
+
 function sendMessage() {
     var messageInput = document.getElementById('message-input');
     var message = messageInput.value;
@@ -41,6 +70,9 @@ socket.on('receive_message', function (data) {
         senderUsername.textContent = data.sender;
         senderUsername.classList.add('sender-username');
         messageWrapper.appendChild(senderUsername);
+
+        // Play the pop sound
+        popSound.play();
     }
 
     // Append the message bubble to the message wrapper
@@ -70,6 +102,13 @@ socket.on('user_count', function (data) {
 });
 
 socket.on('user_joined', function (data) {
+    var currentUsername = localStorage.getItem('chatUserName');
+    if (data.name !== currentUsername) {
+        joinSound.play().catch(function(error) {
+            console.log("Error playing sound: " + error);
+        });
+    }
+
     var joinedMessage = '<p class="user-joined-message message-pop-in"><i>' + data.name + ' has joined the chat</i></p>';
     document.getElementById('messages').innerHTML += joinedMessage;
 });
