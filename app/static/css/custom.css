@@ -14,27 +14,45 @@ header {
     padding: 20px;
 }
 
+/* Existing styles */
 .chat-room {
-    position: absolute; /* Positioning relative to the nearest positioned ancestor */
+    position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    width: 90%; /* Set the width as needed */
-    max-width: 800px; /* Maximum width */
-  }
-  
-  /* Ensure the body is full height and no margin to avoid misalignment */
-  html, body {
+    width: 90%;
+    max-width: 800px;
+}
+
+html, body {
     height: 100%;
     margin: 0;
-  }
-  
-  .logo {
-    width: 100px; /* Adjust width as needed */
-    height: auto; /* Maintain aspect ratio */
-    display: block; /* To center the image in the container */
-    margin: 0 auto; /* Center the image horizontally */
 }
+
+.logo {
+    width: 100px;
+    height: auto;
+    display: block;
+    margin: 0 auto;
+}
+
+/* Responsive styles for smaller devices */
+@media (max-width: 600px) {
+    .chat-room {
+        position: static; /* Use static positioning for smaller screens */
+        transform: none; /* No need to translate, as it will fill the screen */
+        width: 100%; /* Full width */
+        max-width: none; /* No maximum width */
+    }
+
+    
+
+    /* Adjust the logo size if needed */
+    .logo {
+        width: 100px; /* Smaller logo for smaller screens */
+    }
+}
+
 
 .message-container {
     border: 4px solid #212529;

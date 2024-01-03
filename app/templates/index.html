@@ -2,6 +2,7 @@
 <html>
 
 <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>8bitChat</title>
     <!-- minify -->
     <link href="https://unpkg.com/nes.css@2.3.0/css/nes.min.css" rel="stylesheet" />
@@ -16,7 +17,7 @@
 
 <body>
     <header class="nes-container is-centered">
-        <img src="{{ url_for('static', filename='images/200w.gif') }}" alt="Logo" style="width: 100px; height: auto;"> <!-- Adjust width as needed -->
+        <img class="logo" src="{{ url_for('static', filename='images/200w.gif') }}" alt="Logo" > <!-- Adjust width as needed -->
         <h2>8bitChat</h2>
         <div id="user-count" class="nes-text is-primary">Users online: 0</div>
     </header>    
