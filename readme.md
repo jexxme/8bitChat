@@ -1,6 +1,6 @@
 <!-- Insert ./docs/logo.svg and center it -->
 <p align="center">
-  <img src="./docs/logo.svg" alt="8bitChat" width="300" height="300">
+  <img src="./docs/logo.svg" alt="8bitChat" width="300" height="200">
 </p>
 
 
