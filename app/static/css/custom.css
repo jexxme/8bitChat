@@ -53,6 +53,17 @@ html, body {
     padding: 1rem;
     margin-bottom: 1rem;
 }
+
+@media (max-height: 1200px) {
+    .chat-room {
+        position: absolute;
+        top: 60%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        
+    }
+
+}
 /* Responsive styles for smaller devices */
 @media (max-width: 600px) {
     .chat-room {
@@ -72,6 +83,7 @@ html, body {
         width: 50px; /* Smaller logo for smaller screens */
     }
 }
+
 
 
 
