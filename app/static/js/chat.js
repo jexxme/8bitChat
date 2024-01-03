@@ -1,6 +1,6 @@
 var socket;
 if (window.location.protocol === 'https:') {
-    socket = io.connect('https://' + document.domain + ':' + location.port, {secure: true});
+    socket = io.connect('https://' + document.domain + ':' + location.port, { secure: true });
 } else {
     socket = io.connect('http://' + document.domain + ':' + location.port);
 }
@@ -9,14 +9,14 @@ function sendMessage() {
     var messageInput = document.getElementById('message-input');
     var message = messageInput.value;
     var name = localStorage.getItem('chatUserName') || 'Anonymous';
-    
+
     if (message.trim() !== '') {
         socket.emit('send_message', { 'message': message, 'name': name });
         messageInput.value = ''; // Clear the input field after sending
     }
 }
 
-socket.on('receive_message', function(data) {
+socket.on('receive_message', function (data) {
     // Create the message bubble
     var messageBubble = document.createElement('div');
     messageBubble.classList.add('nes-balloon');
@@ -57,19 +57,19 @@ socket.on('receive_message', function(data) {
 
 
 // Enter key event listener
-document.getElementById('message-input').addEventListener('keypress', function(event) {
+document.getElementById('message-input').addEventListener('keypress', function (event) {
     if (event.key === 'Enter') {
         sendMessage();
         event.preventDefault(); // Prevent default to avoid line break in input field
     }
 });
-  
 
-socket.on('user_count', function(data) {
+
+socket.on('user_count', function (data) {
     document.getElementById('user-count').innerHTML = 'Users online: ' + data.count;
 });
 
-socket.on('user_joined', function(data) {
+socket.on('user_joined', function (data) {
     var joinedMessage = '<p class="user-joined-message message-pop-in"><i>' + data.name + ' has joined the chat</i></p>';
     document.getElementById('messages').innerHTML += joinedMessage;
 });
@@ -78,24 +78,32 @@ socket.on('user_joined', function(data) {
 
 
 
-document.addEventListener('DOMContentLoaded', function() {
+function updateUsernameDisplay(name) {
+    document.getElementById('username').textContent = name || '';
+}
+
+document.addEventListener('DOMContentLoaded', function () {
     var storedName = localStorage.getItem('chatUserName');
     if (!storedName) {
         document.getElementById('nameModal').style.display = 'block';
         document.getElementById('overlay').style.display = 'block'; // Show overlay
+        document.getElementById('nameInput').focus(); // Automatically focus the input field
     }
 
-    document.getElementById('nameForm').addEventListener('submit', function(event) {
+    document.getElementById('nameForm').addEventListener('submit', function (event) {
         event.preventDefault();
         var name = document.getElementById('nameInput').value;
         localStorage.setItem('chatUserName', name);
         document.getElementById('nameModal').style.display = 'none';
         document.getElementById('overlay').style.display = 'none'; // Hide overlay
-        
+
+        updateUsernameDisplay(name);  // Update when new name is submitted
+
         // Emit the new_user event with the user's name
         socket.emit('new_user', { 'name': name });
     });
-    
+
 });
+
 
 

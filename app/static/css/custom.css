@@ -53,6 +53,10 @@ html, body {
     }
 }
 
+#username-display {
+    margin-top: 10px; /* Spacing from the elements above */
+}
+
 
 .message-container {
     border: 4px solid #212529;
@@ -183,6 +187,47 @@ html, body {
     display: flex;
     flex-direction: column;
 }
+
+/* Form styling */
+.name-form {
+    display: flex;
+    flex-direction: column;
+}
+
+.nes-field.is-inline {
+    display: flex;
+    align-items: center;
+    justify-content: space-between; /* Adjusts space between input and button */
+}
+
+.nes-input {
+    flex-grow: 1; /* Fill the remaining space */
+}
+
+/* Adjustments for smaller screens can be made using a media query if necessary */
+@media (max-width: 600px) {
+    .nes-field.is-inline {
+        flex-direction: column;
+        align-items: stretch; /* Stretch the button to the width of the container */
+    }
+
+    #nameModal {
+        width: 90%; /* Full width for smaller screens */
+        max-width: 400px; /* Limit the width for larger screens */
+    }
+
+    .name-label,
+    .nes-input,
+    .nes-btn {
+        width: 100%;
+        margin-bottom: 10px; /* Add space between elements */
+    }
+
+    .nes-btn {
+        margin-top: 10px; /* Add some space above the button */
+    }
+}
+
 
 
 
