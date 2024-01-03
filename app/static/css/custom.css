@@ -149,3 +149,17 @@ header {
     display: block; /* To center the image in the container */
     margin: 0 auto; /* Center the image horizontally */
 }
+
+
+#overlay {
+    position: fixed; /* Sit on top of the page content */
+    display: none; /* Hidden by default */
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(128, 128, 128, 0.5); /* Black background with opacity */
+    z-index: 2; /* Specify a stack order in case you're using a different order for other elements */
+}

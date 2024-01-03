@@ -79,6 +79,7 @@ document.addEventListener('DOMContentLoaded', function() {
     var storedName = localStorage.getItem('chatUserName');
     if (!storedName) {
         document.getElementById('nameModal').style.display = 'block';
+        document.getElementById('overlay').style.display = 'block'; // Show overlay
     }
 
     document.getElementById('nameForm').addEventListener('submit', function(event) {
@@ -86,10 +87,12 @@ document.addEventListener('DOMContentLoaded', function() {
         var name = document.getElementById('nameInput').value;
         localStorage.setItem('chatUserName', name);
         document.getElementById('nameModal').style.display = 'none';
+        document.getElementById('overlay').style.display = 'none'; // Hide overlay
         
         // Emit the new_user event with the user's name
         socket.emit('new_user', { 'name': name });
     });
     
 });
+
 
