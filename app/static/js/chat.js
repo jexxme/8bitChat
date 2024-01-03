@@ -78,51 +78,36 @@ function sendMessage() {
     var name = localStorage.getItem('chatUserName') || 'Anonymous';
 
     if (message.trim() !== '') {
-        socket.emit('send_message', { 'message': message, 'name': name });
-        messageInput.value = ''; // Clear the input field after sending
-        messageInput.focus(); // Automatically focus the input field
+        socket.emit('send_message', { 'message': message, 'name': name, 'sid': socket.id });
+        messageInput.value = '';
+        messageInput.focus();
     }
 }
 
+
 socket.on('receive_message', function (data) {
-    // Create the message bubble
     var messageBubble = document.createElement('div');
     messageBubble.classList.add('nes-balloon');
     messageBubble.textContent = data.message;
-
-    // Create the message wrapper
     var messageWrapper = document.createElement('div');
     messageWrapper.classList.add('message');
     messageWrapper.classList.add('message-pop-in');
 
-    // Get the current user's name from localStorage
-    var currentUsername = localStorage.getItem('chatUserName');
-
-    // Check if the message is from the current user
-    if (data.sender === currentUsername) {
+    // Compare the session ID instead of the username
+    if (data.sid === socket.id) {
         messageWrapper.classList.add('message-user');
     } else {
         messageWrapper.classList.add('message-other');
-
-        // If the message is not from the current user, add the sender's username
         var senderUsername = document.createElement('div');
         senderUsername.textContent = data.sender;
         senderUsername.classList.add('sender-username');
         messageWrapper.appendChild(senderUsername);
-
-        // Play the pop sound
         popSound.play();
     }
 
-    // Append the message bubble to the message wrapper
     messageWrapper.appendChild(messageBubble);
-
-    // Append the message wrapper to the messages container
     var messagesContainer = document.getElementById('messages');
     messagesContainer.appendChild(messageWrapper);
-
-    // Scroll to the latest message
-    var messagesContainer = document.getElementById('messages');
     messagesContainer.scrollTop = messagesContainer.scrollHeight;
 });
 
@@ -141,15 +126,18 @@ socket.on('user_count', function (data) {
 });
 
 socket.on('user_joined', function (data) {
-    var currentUsername = localStorage.getItem('chatUserName');
-    if (data.name !== currentUsername) {
+    // Compare the session ID instead of the username
+    if (data.sid !== socket.id) {
         joinSound.play().catch(function(error) {
             console.log("Error playing sound: " + error);
         });
     }
 
-    var joinedMessage = '<p class="user-joined-message message-pop-in"><i>' + data.name + ' has joined the chat</i></p>';
-    document.getElementById('messages').innerHTML += joinedMessage;
+    var joinMessage = document.createElement('p');
+    joinMessage.innerHTML = '<i>' + data.name + ' has joined the chat</i>';
+    joinMessage.classList.add('user-joined-message');
+    joinMessage.classList.add('message-pop-in');
+    document.getElementById('messages').appendChild(joinMessage);
 });
 
 function updateUsernameDisplay(name) {

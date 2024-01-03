@@ -125,6 +125,18 @@ The project structure is organized as follows:
 
 ---
 
+### Unique Usernames
+
+### Problem
+
+The logic of the chat application broke when two users had the same username. When UserA sends a message, and UserB had the same nickname as UserA, the message is displayed as if UserB has sent the message. This is confusing and can lead to misattributed messages.
+
+### Solution
+
+To solve this problem, we will use hidden session IDs to distinguish between users instead of relying solely on usernames. This approach ensures that each user is uniquely identified, even if they share the same username. This enhances the overall user experience and clarity within the chat application. 
+
+Also, annoying users can be easily blocked by their session ID. (Which is not implemented, yet...?)
+
 ## Contributing
 
 If you would like to contribute to the development of 8bitChat, please follow these steps:
