@@ -59,3 +59,13 @@ def handle_new_user(data):
 def handle_known_user(data):
     name = data['name']
     emit('user_joined', {'name': name, 'sid': request.sid}, broadcast=True)
+    
+    
+@socketio.on('send_photo')
+def handle_send_photo(data):
+    # Assuming data['photo'] is the Base64 encoded string of the photo
+    emit('receive_photo', {
+        'photo': data['photo'],
+        'sender': data['name'],
+        'sid': request.sid  # Include the session ID
+    }, broadcast=True)

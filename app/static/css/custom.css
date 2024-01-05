@@ -396,3 +396,16 @@ html, body {
     }
 
 }
+
+
+.message-photo {
+    display: block; /* Replaces inline display for images */
+    max-width: 90%; /* Sets the maximum width to 90% of its parent */
+    max-height: 200px; /* Sets a maximum height */
+    margin: 10px auto; /* Centers the image in the balloon */
+    object-fit: contain; /* Ensures the aspect ratio is maintained without cropping */
+    border-radius: 15px; /* Rounds the corners of the image */
+    image-rendering: pixelated; /* Applies the pixelated effect */
+
+}
+

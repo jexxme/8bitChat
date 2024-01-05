@@ -66,6 +66,10 @@
     </div>
     <div class="nes-field is-inline">
       <input type="text" id="message-input" class="nes-input" placeholder="Type a message..." />
+      <button type="button" class="nes-btn is-secondary" onclick="sendPhoto()">
+        <img src="{{ url_for('static', filename='images/photo.svg') }}" alt="Send Photo">
+        <input type="file" id="photoInput" accept="image/*" style="display: none;" onchange="uploadPhoto()">
+      </button>
       <button type="button" class="nes-btn is-primary" onclick="sendMessage()">Send</button>
     </div>
   </section>

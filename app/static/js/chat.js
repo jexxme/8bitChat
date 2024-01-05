@@ -185,3 +185,73 @@ document.getElementById('infoButton').addEventListener('click', function() {
 document.getElementById('closeModal').addEventListener('click', function() {
     document.getElementById('legalModal').style.display = 'none';
 });
+
+function sendPhoto() {
+    // Trigger file input
+    document.getElementById('photoInput').click();
+}
+
+function uploadPhoto() {
+    var fileInput = document.getElementById('photoInput');
+    var file = fileInput.files[0];
+
+    if (file) {
+        var reader = new FileReader();
+        reader.onload = function(event) {
+            var base64String = event.target.result;
+
+            // Emit the photo data through the socket
+            socket.emit('send_photo', {
+                'photo': base64String,
+                'name': 'YourUsername' // Replace with the actual username
+            });
+        };
+        reader.readAsDataURL(file);
+
+        // Reset the file input
+        fileInput.value = '';
+    }
+}
+
+socket.on('receive_photo', function (data) {
+    console.log('Received photo from ' + data.sender);
+
+    var photoBubble = document.createElement('img');
+    photoBubble.src = data.photo; // Set the source of the image to the received Base64 string
+    photoBubble.classList.add('nes-balloon'); // Add a class for styling (optional)
+    photoBubble.classList.add('message-photo'); // Add a class for styling (optional)
+
+    var messageWrapper = document.createElement('div');
+    messageWrapper.classList.add('message');
+    messageWrapper.classList.add('message-pop-in');
+
+    var messagesContainer = document.getElementById('messages');
+    var lastMessage = messagesContainer.querySelector('.message-other:last-child');
+
+    // Compare the session ID instead of the username
+    if (data.sid === socket.id) {
+        messageWrapper.classList.add('message-user');
+    } else {
+        messageWrapper.classList.add('message-other');
+        
+        // Check if the last message is from the same user (based on sid)
+        var isSameUser = lastMessage && lastMessage.dataset.sid === data.sid;
+        if (!isSameUser) {
+            var senderUsername = document.createElement('div');
+            senderUsername.textContent = data.sender;
+            senderUsername.classList.add('sender-username');
+            messageWrapper.appendChild(senderUsername);
+        }
+
+        // Play pop sound for every photo received from other users
+        popSound.play();
+
+        // Store the sid in the message-wrapper for future reference
+        messageWrapper.dataset.sid = data.sid;
+    }
+
+    messageWrapper.appendChild(photoBubble); // Append the photo to the message wrapper
+    messagesContainer.appendChild(messageWrapper); // Append the message wrapper to the container
+    messagesContainer.scrollTop = messagesContainer.scrollHeight; // Scroll to the bottom of the container
+});
+
