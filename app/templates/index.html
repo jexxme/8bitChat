@@ -23,17 +23,12 @@
   <meta name="twitter:image"
     content="https://raw.githubusercontent.com/jexxme/8bitChat/f45cba3a60fbd4571498b3d2359102f962933a07/docs/logo.png" />
 
-
-
-  <!-- minify -->
-  <link href="https://unpkg.com/nes.css@2.3.0/css/nes.min.css" rel="stylesheet" />
+  <!-- Include css/nes.min.css -->
+  <link href="{{ url_for('static', filename='css/nes.min.css') }}" rel="stylesheet" />
   <!-- Include custom.css -->
   <link href="{{ url_for('static', filename='css/custom.css') }}" rel="stylesheet" />
-  <!-- Include static/press-start-2p.ttf -->
-  <link href="https://fonts.cdnfonts.com/css/press-start-2p" rel="stylesheet">
   <!-- Include Favicon -->
   <link rel="icon" href="{{ url_for('static', filename='images/favicon.ico') }}" type="image/x-icon" />
-
 </head>
 
 <body data-pop-sound-url="{{ url_for('static', filename='pop.mp3') }}">
@@ -127,5 +122,4 @@
     "operatingSystem": "Any",
   }
   </script>
-
 </html>
