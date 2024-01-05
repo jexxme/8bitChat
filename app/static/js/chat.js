@@ -5,8 +5,39 @@ if (window.location.protocol === 'https:') {
     socket = io.connect('http://' + document.domain + ':' + location.port);
 }
 
+// Audio files
+var joinSound = new Audio("/static/join.mp3"); 
+var popSound = new Audio("/static/pop.mp3"); 
+
 // Flag to track if the audio context is unlocked
 let audioContextUnlocked = false;
+let audioMuted = false; 
+
+// Get radio buttons by their IDs
+const muteRadio = document.getElementById('mute');
+const unmuteRadio = document.getElementById('unmute');
+
+// Function to handle audio mute/unmute
+function handleAudioMute() {
+    if (muteRadio.checked) {
+        console.log('Muting audio');
+        audioMuted = true;
+        joinSound.muted = true;
+        popSound.muted = true;
+    } else {
+        console.log('Unmuting audio');
+        audioMuted = false;
+        joinSound.muted = false;
+        popSound.muted = false;
+    }
+}
+
+// Add event listeners for radio buttons
+muteRadio.addEventListener('change', handleAudioMute);
+unmuteRadio.addEventListener('change', handleAudioMute);
+
+// Initial mute/unmute state based on checked radio button
+handleAudioMute();
 
 function unlockAudioContext() {
     if (!audioContextUnlocked) {
@@ -27,9 +58,6 @@ function unlockAudioContext() {
 
 // Add event listener for the first user interaction
 document.addEventListener('click', unlockAudioContext);
-
-var joinSound = new Audio("/static/join.mp3"); 
-var popSound = new Audio("/static/pop.mp3"); 
 
 document.addEventListener('DOMContentLoaded', function () {
     var storedName = localStorage.getItem('chatUserName');
@@ -99,8 +127,10 @@ socket.on('receive_message', function (data) {
             senderUsername.textContent = data.sender;
             senderUsername.classList.add('sender-username');
             messageWrapper.appendChild(senderUsername);
-            popSound.play();
         }
+
+        // Play pop sound for every message received from other users
+        popSound.play();
 
         // Store the sid in the message-wrapper for future reference
         messageWrapper.dataset.sid = data.sid;
@@ -110,6 +140,7 @@ socket.on('receive_message', function (data) {
     messagesContainer.appendChild(messageWrapper);
     messagesContainer.scrollTop = messagesContainer.scrollHeight;
 });
+
 
 
 
