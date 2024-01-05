@@ -20,6 +20,14 @@ connected_users = 0
 def index():
     return render_template('index.html', google_analytics_key=google_analytics_key)
 
+@app.route('/privacy-policy')
+def privacy_policy():
+    return render_template('privacy_policy.html')
+
+@app.route('/terms-of-service')
+def terms_of_service():
+    return render_template('terms_of_service.html')
+
 @socketio.on('connect')
 def handle_connect():
     global connected_users

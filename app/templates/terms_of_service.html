@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+
+<!-- Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id={{ google_analytics_key }}"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+
+    gtag('config', '{{ google_analytics_key }}');
+</script>
+<!-- End Google Analytics -->
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>8bitChat</title>
+    <!-- minify -->
+    <link href="https://unpkg.com/nes.css@2.3.0/css/nes.min.css" rel="stylesheet" />
+    <!-- Include static/press-start-2p.ttf -->
+    <link href="https://fonts.cdnfonts.com/css/press-start-2p" rel="stylesheet">
+    <!-- Include Favicon -->
+    <link rel="icon" href="{{ url_for('static', filename='images/favicon.ico') }}" type="image/x-icon" />
+
+</head>
+
+<body>
+    <section>
+        <header>
+            <h1>8bitChat - Terms of Service</h1>
+            <p>Effective Date: 01.01.2024</p>
+        </header>
+    
+        <section>
+            <h2>1. Acceptance of Terms</h2>
+            <p>By using the 8bitChat web chat application, you agree to be bound by these Terms of Service.</p>
+        </section>
+    
+        <section>
+            <h2>2. Privacy Policy</h2>
+            <p>Your use of 8bitChat is also governed by our <a href="/privacy-policy">Privacy Policy</a>, which outlines how we collect, use, and protect your data.</p>
+        </section>
+    
+        <section>
+            <h2>3. Limitations of Use</h2>
+            <p>You may use 8bitChat for lawful purposes only. You agree not to engage in any activities that violate applicable laws, regulations, or these Terms of Service.</p>
+        </section>
+    
+        <section>
+            <h2>4. Changes to the Service</h2>
+            <p>We reserve the right to modify, suspend, or discontinue all or any part of 8bitChat at any time without notice.</p>
+        </section>
+    
+        <section>
+            <h2>5. Intellectual Property</h2>
+            <p>8bitChat and its contents are protected by intellectual property laws. You may not reproduce, distribute, or create derivative works without our permission.</p>
+        </section>
+    
+        <section>
+            <h2>6. Disclaimers</h2>
+            <p>8bitChat is provided "as is" without warranties of any kind. We do not guarantee the availability, accuracy, or reliability of the service.</p>
+        </section>
+    
+        <section>
+            <h2>7. Limitation of Liability</h2>
+            <p>We are not liable for any direct, indirect, incidental, consequential, or punitive damages arising from your use of 8bitChat.</p>
+        </section>
+    
+        <section>
+            <h2>8. Contact Information</h2>
+            <p>If you have any questions or concerns regarding these Terms of Service, please contact us at Github@Jexxme.</p>
+        </section>
+    
+        <footer>
+            <p>Copyright &copy; 2024 8bitChat. All rights reserved.</p>
+        </footer>
+    
+
+        <a href="/">Back to 8bitChat</a>
+        </section>
+
+        <br>
+
+    <footer class="legal-footer">
+        <div class="legal-links">
+            <a href="/privacy-policy" target="_blank" rel="noopener noreferrer">Privacy Policy</a> |
+            <a href="/terms-of-service" target="_blank" rel="noopener noreferrer">Terms of Service</a>
+        </div>
+    </footer>
+    <style>
+        
+    </style>
+
+</body>
+</html>
