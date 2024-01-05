@@ -339,10 +339,13 @@ html, body {
 
 .info-button {
     position: fixed;
-    top: 10px;
+    top: 15px;
     right: 10px;
     background-color: transparent;
     border: none;
+    /* z index */
+    z-index: 1000;
+
 }
 
 .info-button img {

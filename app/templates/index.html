@@ -5,7 +5,7 @@
 <script async src="https://www.googletagmanager.com/gtag/js?id={{ google_analytics_key }}"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
+  function gtag() { dataLayer.push(arguments); }
   gtag('js', new Date());
 
   gtag('config', '{{ google_analytics_key }}');
@@ -13,76 +13,78 @@
 <!-- End Google Analytics -->
 
 <head>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
-    <!-- Basic Info -->
-    <title>8bitChat</title>
-    <meta name="description" content="8bitChat is a free, open-source chat application.">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-      <!-- Open Graph / Facebook Meta Tags -->
-      <meta property="og:type" content="website" />
-      <meta property="og:url" content="https://8-bit.xyz/" />
-      <meta property="og:title" content="8bitChat" />
-      <meta property="og:description" content="8bitChat is a free, open-source chat application." />
-      <meta property="og:image" content="https://raw.githubusercontent.com/jexxme/8bitChat/f45cba3a60fbd4571498b3d2359102f962933a07/docs/logo.png" />
-  
-      <!-- Twitter Card Meta Tags -->
-      <meta name="twitter:card" content="summary_large_image" />
-      <meta name="twitter:url" content="https://8-bit.xyz/" />
-      <meta name="twitter:title" content="8bitChat" />
-      <meta name="twitter:description" content="8bitChat is a free, open-source chat application." />
-      <meta name="twitter:image" content="https://raw.githubusercontent.com/jexxme/8bitChat/f45cba3a60fbd4571498b3d2359102f962933a07/docs/logo.png" />
-  
-  
+  <!-- Basic Info -->
+  <title>8bitChat</title>
+  <meta name="description" content="8bitChat is a free, open-source chat application.">
 
-    <!-- minify -->
-    <link href="https://unpkg.com/nes.css@2.3.0/css/nes.min.css" rel="stylesheet" />
-    <!-- Include custom.css -->
-    <link href="{{ url_for('static', filename='css/custom.css') }}" rel="stylesheet" />
-    <!-- Include static/press-start-2p.ttf -->
-    <link href="https://fonts.cdnfonts.com/css/press-start-2p" rel="stylesheet">
-    <!-- Include Favicon -->
-    <link rel="icon" href="{{ url_for('static', filename='images/favicon.ico') }}" type="image/x-icon" />
+  <!-- Open Graph / Facebook Meta Tags -->
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://8-bit.xyz/" />
+  <meta property="og:title" content="8bitChat" />
+  <meta property="og:description" content="8bitChat is a free, open-source chat application." />
+  <meta property="og:image"
+    content="https://raw.githubusercontent.com/jexxme/8bitChat/f45cba3a60fbd4571498b3d2359102f962933a07/docs/logo.png" />
+
+  <!-- Twitter Card Meta Tags -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:url" content="https://8-bit.xyz/" />
+  <meta name="twitter:title" content="8bitChat" />
+  <meta name="twitter:description" content="8bitChat is a free, open-source chat application." />
+  <meta name="twitter:image"
+    content="https://raw.githubusercontent.com/jexxme/8bitChat/f45cba3a60fbd4571498b3d2359102f962933a07/docs/logo.png" />
+
+
+
+  <!-- minify -->
+  <link href="https://unpkg.com/nes.css@2.3.0/css/nes.min.css" rel="stylesheet" />
+  <!-- Include custom.css -->
+  <link href="{{ url_for('static', filename='css/custom.css') }}" rel="stylesheet" />
+  <!-- Include static/press-start-2p.ttf -->
+  <link href="https://fonts.cdnfonts.com/css/press-start-2p" rel="stylesheet">
+  <!-- Include Favicon -->
+  <link rel="icon" href="{{ url_for('static', filename='images/favicon.ico') }}" type="image/x-icon" />
 
 </head>
 
 <body data-pop-sound-url="{{ url_for('static', filename='pop.mp3') }}">
-    <header class="nes-container is-centered">
-      <button id="infoButton" class="info-button">
-        <img id="infoButtonImg" src="{{ url_for('static', filename='images/info.png') }}" alt="Info">
-    </button>
-      <img class="logo" src="{{ url_for('static', filename='images/200w.gif') }}" alt="Logo">
-        <h2 id="heading">8bitChat</h2>
-        <div id="user-count" class="nes-text is-primary">Users online: 0</div>
-        <div id="username-display" class="nes-text is-primary">Username: <span id="username"></span></div>
-    </header>
-        
+  <button id="infoButton" class="info-button">
+    <img id="infoButtonImg" src="{{ url_for('static', filename='images/info.png') }}" alt="Info">
+  </button>
+  <header class="nes-container is-centered">
+    <img class="logo" src="{{ url_for('static', filename='images/200w.gif') }}" alt="Logo">
+    <h2 id="heading">8bitChat</h2>
+    <div id="user-count" class="nes-text is-primary">Users online: 0</div>
+    <div id="username-display" class="nes-text is-primary">Username: <span id="username"></span></div>
+  </header>
 
-    <section class="nes-container chat-room">
-        <div id="messages" class="message-container">
-          <!-- Messages will go here -->
-        </div>
-        <div class="nes-field is-inline">
-          <input type="text" id="message-input" class="nes-input" placeholder="Type a message..." />
-          <button type="button" class="nes-btn is-primary" onclick="sendMessage()">Send</button>
-        </div>
-      </section>
-      
-      <div id="overlay" style="display: none;"></div>
 
-      <div id="nameModal" class="nes-dialog" style="display:none;">
-        <form id="nameForm" class="name-form">
-            <label for="nameInput" class="name-label">Please enter your name:</label>
-            <div class="nes-field is-inline">
-                <input type="text" id="nameInput" class="nes-input" required>
-                <button type="submit" class="nes-btn is-primary">Let's go!</button>
-            </div>
-        </form>
+  <section class="nes-container chat-room">
+    <div id="messages" class="message-container">
+      <!-- Messages will go here -->
     </div>
+    <div class="nes-field is-inline">
+      <input type="text" id="message-input" class="nes-input" placeholder="Type a message..." />
+      <button type="button" class="nes-btn is-primary" onclick="sendMessage()">Send</button>
+    </div>
+  </section>
 
-<!-- Legal Links Modal -->
-<div id="legalModal" class="nes-dialog" style="display:none;">
-  <div class="legal-links-container">
+  <div id="overlay" style="display: none;"></div>
+
+  <div id="nameModal" class="nes-dialog" style="display:none;">
+    <form id="nameForm" class="name-form">
+      <label for="nameInput" class="name-label">Please enter your name:</label>
+      <div class="nes-field is-inline">
+        <input type="text" id="nameInput" class="nes-input" required>
+        <button type="submit" class="nes-btn is-primary">Let's go!</button>
+      </div>
+    </form>
+  </div>
+
+  <!-- Legal Links Modal -->
+  <div id="legalModal" class="nes-dialog" style="display:none;">
+    <div class="legal-links-container">
       <h3>8bitChat</h3>
       <p>8bitChat is a free, open-source chat application.</p>
       <p>8bitChat is not responsible for any content posted by users.</p>
@@ -94,21 +96,20 @@
 
 
       <h3 style="margin-top: 20px;">Legal Links</h3>
-      <a href="/privacy-policy" target="_blank" rel="noopener noreferrer">Privacy Policy</a> 
+      <a href="/privacy-policy" target="_blank" rel="noopener noreferrer">Privacy Policy</a>
       <br>
       <a href="/terms-of-service" target="_blank" rel="noopener noreferrer">Terms of Service</a>
       <br>
       <button id="closeModal" class="nes-btn is-primary">Close</button>
+    </div>
   </div>
-</div>
-  
+
 </body>
 
 
 <!-- Include Socket.IO JavaScript Library -->
 <script src="https://cdn.socket.io/4.7.2/socket.io.min.js"
-    integrity="sha384-mZLF4UVrpi/QTWPA7BjNPEnkIfRFn4ZEO3Qt/HFklTJBj/gBOV8G3HcKn4NfQblz"
-    crossorigin="anonymous"></script>
+  integrity="sha384-mZLF4UVrpi/QTWPA7BjNPEnkIfRFn4ZEO3Qt/HFklTJBj/gBOV8G3HcKn4NfQblz" crossorigin="anonymous"></script>
 
 <!-- Include JavaScript Files -->
 <script type="text/javascript" src="{{ url_for('static', filename='js/chat.js') }}"></script>
@@ -127,5 +128,5 @@
     "operatingSystem": "Any",
   }
   </script>
-  
+
 </html>
