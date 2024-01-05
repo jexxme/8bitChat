@@ -380,7 +380,7 @@ html, body {
 }
 
 /* Spacing on top of the button */
-.nes-dialog .nes-btn {
+.close-btn {
     margin-top: 20px;
 }
 
