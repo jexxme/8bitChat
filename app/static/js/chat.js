@@ -6,12 +6,12 @@ if (window.location.protocol === 'https:') {
 }
 
 // Audio files
-var joinSound = new Audio("/static/join.mp3"); 
-var popSound = new Audio("/static/pop.mp3"); 
+var joinSound = new Audio("/static/join.mp3");
+var popSound = new Audio("/static/pop.mp3");
 
 // Flag to track if the audio context is unlocked
 let audioContextUnlocked = false;
-let audioMuted = false; 
+let audioMuted = false;
 
 // Get radio buttons by their IDs
 const muteRadio = document.getElementById('mute');
@@ -120,7 +120,7 @@ socket.on('receive_message', function (data) {
         messageWrapper.classList.add('message-user');
     } else {
         messageWrapper.classList.add('message-other');
-        
+
         // Check if the last message is from the same user (based on sid)
         var isSameUser = lastMessage && lastMessage.dataset.sid === data.sid;
         if (!isSameUser) {
@@ -161,7 +161,7 @@ socket.on('user_count', function (data) {
 socket.on('user_joined', function (data) {
     // Compare the session ID instead of the username
     if (data.sid !== socket.id) {
-        joinSound.play().catch(function(error) {
+        joinSound.play().catch(function (error) {
             console.log("Error playing sound: " + error);
         });
     }
@@ -178,32 +178,33 @@ function updateUsernameDisplay(name) {
 }
 
 
-document.getElementById('infoButton').addEventListener('click', function() {
+document.getElementById('infoButton').addEventListener('click', function () {
     document.getElementById('legalModal').style.display = 'block';
 });
 
-document.getElementById('closeModal').addEventListener('click', function() {
+document.getElementById('closeModal').addEventListener('click', function () {
     document.getElementById('legalModal').style.display = 'none';
 });
 
 function sendPhoto() {
-    // Trigger file input
+    // Trigger file input for selecting a photo
     document.getElementById('photoInput').click();
 }
 
 function uploadPhoto() {
     var fileInput = document.getElementById('photoInput');
     var file = fileInput.files[0];
+    var name = localStorage.getItem('chatUserName') || 'Anonymous';
 
     if (file) {
         var reader = new FileReader();
-        reader.onload = function(event) {
+        reader.onload = function (event) {
             var base64String = event.target.result;
 
             // Emit the photo data through the socket
             socket.emit('send_photo', {
                 'photo': base64String,
-                'name': 'YourUsername' // Replace with the actual username
+                'name': name // Replace with the actual username
             });
         };
         reader.readAsDataURL(file);
@@ -217,6 +218,10 @@ socket.on('receive_photo', function (data) {
     console.log('Received photo from ' + data.sender);
 
     var photoBubble = document.createElement('img');
+    photoBubble.onload = function () {
+        applyPixelatedEffect(this, 4); // '8' is the scale factor; adjust as needed for the desired effect
+    };
+
     photoBubble.src = data.photo; // Set the source of the image to the received Base64 string
     photoBubble.classList.add('nes-balloon'); // Add a class for styling (optional)
     photoBubble.classList.add('message-photo'); // Add a class for styling (optional)
@@ -233,7 +238,7 @@ socket.on('receive_photo', function (data) {
         messageWrapper.classList.add('message-user');
     } else {
         messageWrapper.classList.add('message-other');
-        
+
         // Check if the last message is from the same user (based on sid)
         var isSameUser = lastMessage && lastMessage.dataset.sid === data.sid;
         if (!isSameUser) {
@@ -252,6 +257,44 @@ socket.on('receive_photo', function (data) {
 
     messageWrapper.appendChild(photoBubble); // Append the photo to the message wrapper
     messagesContainer.appendChild(messageWrapper); // Append the message wrapper to the container
-    messagesContainer.scrollTop = messagesContainer.scrollHeight; // Scroll to the bottom of the container
+    // Wait 0.01s for the image to load before scrolling to the bottom
+    setTimeout(function () {
+        messagesContainer.scrollTop = messagesContainer.scrollHeight;
+    }, 1);
 });
 
+function applyPixelatedEffect(imageElement, scale) {
+    // Create a canvas element
+    var canvas = document.createElement('canvas');
+    var ctx = canvas.getContext('2d');
+
+    // Calculate the scaled down size
+    var w = imageElement.width / scale;
+    var h = imageElement.height / scale;
+
+    // Set the canvas size to the scaled down size
+    canvas.width = w;
+    canvas.height = h;
+
+    // Disable image smoothing to keep the pixels sharp
+    ctx.imageSmoothingEnabled = false;
+
+    // Draw the image to the scaled down canvas
+    ctx.drawImage(imageElement, 0, 0, w, h);
+
+    // Scale the canvas back up to the image's original size
+    var pixelatedImage = document.createElement('canvas');
+    pixelatedImage.width = imageElement.width;
+    pixelatedImage.height = imageElement.height;
+    var pixelCtx = pixelatedImage.getContext('2d');
+
+    // Draw the scaled down image onto the larger canvas to get the pixel effect
+    pixelCtx.imageSmoothingEnabled = false; // Ensure the scaling up is also pixelated
+    pixelCtx.scale(scale, scale);
+    pixelCtx.drawImage(canvas, 0, 0);
+
+    // Replace the source of the image element with the data URL of the pixelated canvas
+    imageElement.src = pixelatedImage.toDataURL();
+}
+
+// Usage: When the image loads, apply the pixel effect

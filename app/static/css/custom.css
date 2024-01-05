@@ -195,7 +195,6 @@ html, body {
 
 .nes-field.is-inline .nes-input {
     flex-grow: 1;
-    margin-right: 0.5rem;
 }
 
 
@@ -409,3 +408,22 @@ html, body {
 
 }
 
+
+
+#photoButton {
+    cursor: pointer;
+    height: auto; /* This will maintain the aspect ratio */
+    width: auto; /* This will maintain the aspect ratio */
+    max-height: 61px; /* Replace with the actual height of your NES.css buttons */
+    transition: transform 0.2s ease, box-shadow 0.2s ease; /* Smooth transition for hover effects */
+}
+
+#photoButton:hover {
+    transform: scale(1.1); /* Slightly scale the image up */
+  }
+
+@media (max-width: 600px) {
+    #photoButton {
+        display: none;
+    }
+}
