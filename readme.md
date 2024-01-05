@@ -1,9 +1,6 @@
-<!-- Insert ./docs/logo.svg and center it -->
 <p align="center">
   <img src="./docs/logo.svg" alt="8bitChat" width="300" height="150">
 </p>
-
-
 
 # 8bitChat - Real-Time Chat Application
 A real-time, retro-style chat application built with Flask and NES.CSS.
