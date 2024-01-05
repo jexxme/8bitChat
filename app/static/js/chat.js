@@ -47,6 +47,7 @@ function unlockAudioContext() {
             popSound.play().then(() => {
                 popSound.pause();
                 audioContextUnlocked = true;
+                console.log('Audio context unlocked');
                 // Remove the event listener once the audio context is unlocked
                 document.removeEventListener('click', unlockAudioContext);
             });
