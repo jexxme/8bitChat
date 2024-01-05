@@ -44,3 +44,10 @@ def handle_send_message_event(data):
 def handle_new_user(data):
     name = data['name']
     emit('user_joined', {'name': name, 'sid': request.sid}, broadcast=True)  # Include the session ID
+
+# When a known user joins, we also want to emit the user_joined event 
+
+@socketio.on('known_user')
+def handle_known_user(data):
+    name = data['name']
+    emit('user_joined', {'name': name, 'sid': request.sid}, broadcast=True)

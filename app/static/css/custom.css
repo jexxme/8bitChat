@@ -62,8 +62,34 @@ html, body {
         transform: translate(-50%, -50%);
         
     }
+    .message-container {
+        height: 400px;
+    }
+
+    .logo {
+        width: 75px;
+    }
 
 }
+
+@media (max-height: 1000px) {
+    .chat-room {
+        position: absolute;
+        top: 60%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        
+    }
+    .message-container {
+        height: 300px;
+    }
+
+    .logo {
+        width: 50px;
+    }
+
+}
+
 /* Responsive styles for smaller devices */
 @media (max-width: 600px) {
     .chat-room {

@@ -33,7 +33,6 @@ document.addEventListener('click', unlockAudioContext);
 var joinSound = new Audio("/static/join.mp3"); // Make sure the path is correct
 
 var popSound = new Audio("/static/pop.mp3"); // Make sure the path is correct
-
 document.addEventListener('DOMContentLoaded', function () {
     var storedName = localStorage.getItem('chatUserName');
     if (!storedName) {
@@ -42,12 +41,14 @@ document.addEventListener('DOMContentLoaded', function () {
         document.getElementById('nameModal').style.display = 'block';
         document.getElementById('overlay').style.display = 'block'; // Show overlay
         document.getElementById('nameInput').focus(); // Automatically focus the input field
-    } else
-
-    console.log('Username found in localStorage: ' + storedName);
-
-    // Update the username display
-    updateUsernameDisplay(storedName);
+    } else {
+        console.log('Username found in localStorage: ' + storedName);
+        // Update the username display
+        updateUsernameDisplay(storedName);
+        // Emit the known_user event with the user's name
+        console.log('Emitting known_user event');
+        socket.emit('known_user', { 'name': storedName });
+    }
 
     document.getElementById('nameForm').addEventListener('submit', function (event) {
         event.preventDefault();
@@ -55,22 +56,13 @@ document.addEventListener('DOMContentLoaded', function () {
         localStorage.setItem('chatUserName', name);
         document.getElementById('nameModal').style.display = 'none';
         document.getElementById('overlay').style.display = 'none'; // Hide overlay
-
         updateUsernameDisplay(name);  // Update when new name is submitted
-
-        // Emit the new_user event with the user's name
-        socket.emit('new_user', { 'name': name });
-
-        // Clear the input field
-        document.getElementById('nameInput').value = '';
-
-        // Automatically focus the input field
-        document.getElementById('message-input').focus();
-        
+        socket.emit('new_user', { 'name': name }); // Emit the new_user event with the user's name
+        document.getElementById('nameInput').value = ''; // Clear the input field
+        document.getElementById('message-input').focus(); // Automatically focus the input field
     });
-
-
 });
+
 
 function sendMessage() {
     var messageInput = document.getElementById('message-input');
