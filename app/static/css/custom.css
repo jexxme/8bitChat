@@ -295,6 +295,28 @@ html, body {
     .nes-btn {
         margin-top: 10px; /* Add some space above the button */
     }
+
+    .nes-input {
+        margin-bottom: 0; /* Remove the margin below the input */
+    }
+
+    .user-joined-message {
+        font-size: 0.75rem;
+    }
+
+    .message .nes-balloon {
+        max-width: 100%;
+        font-size: 0.75rem;
+    }
+
+    .message-other .sender-username {
+        margin-left: 0;
+    }
+
+    .message-other .nes-balloon {
+        max-width: 100%;
+    }
+
 }
 
 
