@@ -5,7 +5,6 @@ if (window.location.protocol === 'https:') {
     socket = io.connect('http://' + document.domain + ':' + location.port);
 }
 
-
 // Flag to track if the audio context is unlocked
 let audioContextUnlocked = false;
 
@@ -26,13 +25,12 @@ function unlockAudioContext() {
     }
 }
 
-
 // Add event listener for the first user interaction
 document.addEventListener('click', unlockAudioContext);
 
-var joinSound = new Audio("/static/join.mp3"); // Make sure the path is correct
+var joinSound = new Audio("/static/join.mp3"); 
+var popSound = new Audio("/static/pop.mp3"); 
 
-var popSound = new Audio("/static/pop.mp3"); // Make sure the path is correct
 document.addEventListener('DOMContentLoaded', function () {
     var storedName = localStorage.getItem('chatUserName');
     if (!storedName) {
