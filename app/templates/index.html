@@ -66,7 +66,7 @@
     </div>
     <div class="nes-field is-inline">
       <input type="text" id="message-input" class="nes-input" placeholder="Type a message..." />
-      <img id="photoButton" src="{{ url_for('static', filename='images/photo.svg') }}" class="send-button" alt="Send Photo" onclick="sendPhoto()">
+      <img id="photoButton" src="{{ url_for('static', filename='images/photo.svg') }}" class="send-button nes-pointer" alt="Send Photo" onclick="sendPhoto()">
       <button type="button" class="nes-btn is-primary send-button" onclick="sendMessage()">Send</button>
     </div>
   </section>

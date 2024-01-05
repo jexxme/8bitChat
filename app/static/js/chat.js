@@ -191,28 +191,57 @@ function sendPhoto() {
     document.getElementById('photoInput').click();
 }
 
+function compressImage(file, quality, callback) {
+    const reader = new FileReader();
+    reader.onload = (event) => {
+        const imgElement = document.createElement("img");
+        imgElement.src = event.target.result;
+        imgElement.onload = () => {
+            const canvas = document.createElement("canvas");
+            const scaleFactor = quality / 100;
+            canvas.width = imgElement.width * scaleFactor;
+            canvas.height = imgElement.height * scaleFactor;
+            const ctx = canvas.getContext("2d");
+            ctx.drawImage(imgElement, 0, 0, canvas.width, canvas.height);
+            ctx.canvas.toBlob((blob) => {
+                const compressedFile = new File([blob], file.name, {
+                    type: "image/jpeg",
+                    lastModified: Date.now(),
+                });
+                callback(compressedFile);
+            }, "image/jpeg", quality / 100);
+        };
+    };
+    reader.readAsDataURL(file);
+}
+
 function uploadPhoto() {
-    var fileInput = document.getElementById('photoInput');
-    var file = fileInput.files[0];
-    var name = localStorage.getItem('chatUserName') || 'Anonymous';
+    console.log('Trying to upload photo');
+    const fileInput = document.getElementById('photoInput');
+    const file = fileInput.files[0];
+    const name = localStorage.getItem('chatUserName') || 'Anonymous';
 
     if (file) {
-        var reader = new FileReader();
-        reader.onload = function (event) {
-            var base64String = event.target.result;
+        console.log('Uploading photo: ' + file.name);
+        compressImage(file, 70, (compressedFile) => {
+            const reader = new FileReader();
+            reader.onload = (event) => {
+                const base64String = event.target.result;
+                socket.emit('send_photo', {
+                    'photo': base64String,
+                    'name': name
+                });
+            };
+            reader.readAsDataURL(compressedFile);
+        });
 
-            // Emit the photo data through the socket
-            socket.emit('send_photo', {
-                'photo': base64String,
-                'name': name // Replace with the actual username
-            });
-        };
-        reader.readAsDataURL(file);
-
-        // Reset the file input
         fileInput.value = '';
+        console.log('Photo uploaded');
     }
 }
+
+
+
 
 socket.on('receive_photo', function (data) {
     console.log('Received photo from ' + data.sender);

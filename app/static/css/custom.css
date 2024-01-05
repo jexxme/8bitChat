@@ -411,7 +411,6 @@ html, body {
 
 
 #photoButton {
-    cursor: pointer;
     height: auto; /* This will maintain the aspect ratio */
     width: auto; /* This will maintain the aspect ratio */
     max-height: 61px; /* Replace with the actual height of your NES.css buttons */
