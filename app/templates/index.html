@@ -14,7 +14,27 @@
 
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- Basic Info -->
     <title>8bitChat</title>
+    <meta name="description" content="8bitChat is a free, open-source chat application.">
+
+      <!-- Open Graph / Facebook Meta Tags -->
+      <meta property="og:type" content="website" />
+      <meta property="og:url" content="https://8-bit.xyz/" />
+      <meta property="og:title" content="8bitChat" />
+      <meta property="og:description" content="8bitChat is a free, open-source chat application." />
+      <meta property="og:image" content="https://github.com/jexxme/8bitChat/raw/main/docs/logo.svg" />
+  
+      <!-- Twitter Card Meta Tags -->
+      <meta name="twitter:card" content="summary_large_image" />
+      <meta name="twitter:url" content="https://8-bit.xyz/" />
+      <meta name="twitter:title" content="8bitChat" />
+      <meta name="twitter:description" content="8bitChat is a free, open-source chat application." />
+      <meta name="twitter:image" content="https://github.com/jexxme/8bitChat/raw/main/docs/logo.svg" />
+  
+  
+
     <!-- minify -->
     <link href="https://unpkg.com/nes.css@2.3.0/css/nes.min.css" rel="stylesheet" />
     <!-- Include custom.css -->
@@ -93,7 +113,7 @@
 <!-- Include JavaScript Files -->
 <script type="text/javascript" src="{{ url_for('static', filename='js/chat.js') }}"></script>
 
-
+<!-- Schemas -->
 <script type="application/ld+json">
   {
     "@context": "http://schema.org",
