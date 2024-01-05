@@ -137,3 +137,10 @@ function updateUsernameDisplay(name) {
 }
 
 
+document.getElementById('infoButton').addEventListener('click', function() {
+    document.getElementById('legalModal').style.display = 'block';
+});
+
+document.getElementById('closeModal').addEventListener('click', function() {
+    document.getElementById('legalModal').style.display = 'none';
+});

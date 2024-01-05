@@ -28,7 +28,10 @@
 
 <body data-pop-sound-url="{{ url_for('static', filename='pop.mp3') }}">
     <header class="nes-container is-centered">
-        <img class="logo" src="{{ url_for('static', filename='images/200w.gif') }}" alt="Logo">
+      <button id="infoButton" class="info-button">
+        <img id="infoButtonImg" src="{{ url_for('static', filename='images/info.png') }}" alt="Info">
+    </button>
+      <img class="logo" src="{{ url_for('static', filename='images/200w.gif') }}" alt="Logo">
         <h2 id="heading">8bitChat</h2>
         <div id="user-count" class="nes-text is-primary">Users online: 0</div>
         <div id="username-display" class="nes-text is-primary">Username: <span id="username"></span></div>
@@ -57,12 +60,26 @@
         </form>
     </div>
 
-    <footer class="legal-footer">
-        <div class="legal-links">
-          <a href="/privacy-policy" target="_blank" rel="noopener noreferrer">Privacy Policy</a> |
-          <a href="/terms-of-service" target="_blank" rel="noopener noreferrer">TOS</a>
-        </div>
-  </footer>
+<!-- Legal Links Modal -->
+<div id="legalModal" class="nes-dialog" style="display:none;">
+  <div class="legal-links-container">
+      <h3>8bitChat</h3>
+      <p>8bitChat is a free, open-source chat application.</p>
+      <p>8bitChat is not responsible for any content posted by users.</p>
+      <p>8bitChat does not log any usernames or messages.</p>
+      <p>Hell, 8bitChat doesn't even have a database.</p>
+      <a href="https://github.com/jexxme/8bitChat">
+        <i class="nes-icon github"></i>
+      </a>
+
+
+      <h3 style="margin-top: 20px;">Legal Links</h3>
+      <a href="/privacy-policy" target="_blank" rel="noopener noreferrer">Privacy Policy</a> 
+      <br>
+      <a href="/terms-of-service" target="_blank" rel="noopener noreferrer">Terms of Service</a>
+      <button id="closeModal" class="nes-btn is-primary">Close</button>
+  </div>
+</div>
   
 </body>
 
