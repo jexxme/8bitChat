@@ -85,23 +85,34 @@ socket.on('receive_message', function (data) {
     messageWrapper.classList.add('message');
     messageWrapper.classList.add('message-pop-in');
 
+    var messagesContainer = document.getElementById('messages');
+    var lastMessage = messagesContainer.querySelector('.message-other:last-child');
+
     // Compare the session ID instead of the username
     if (data.sid === socket.id) {
         messageWrapper.classList.add('message-user');
     } else {
         messageWrapper.classList.add('message-other');
-        var senderUsername = document.createElement('div');
-        senderUsername.textContent = data.sender;
-        senderUsername.classList.add('sender-username');
-        messageWrapper.appendChild(senderUsername);
-        popSound.play();
+        
+        // Check if the last message is from the same user (based on sid)
+        var isSameUser = lastMessage && lastMessage.dataset.sid === data.sid;
+        if (!isSameUser) {
+            var senderUsername = document.createElement('div');
+            senderUsername.textContent = data.sender;
+            senderUsername.classList.add('sender-username');
+            messageWrapper.appendChild(senderUsername);
+            popSound.play();
+        }
+
+        // Store the sid in the message-wrapper for future reference
+        messageWrapper.dataset.sid = data.sid;
     }
 
     messageWrapper.appendChild(messageBubble);
-    var messagesContainer = document.getElementById('messages');
     messagesContainer.appendChild(messageWrapper);
     messagesContainer.scrollTop = messagesContainer.scrollHeight;
 });
+
 
 
 // Enter key event listener
