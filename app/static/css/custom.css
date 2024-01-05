@@ -107,13 +107,14 @@ html, body {
 
     /* Adjust the logo size if needed */
     .logo {
-        width: 50px; /* Smaller logo for smaller screens */
+        display: none;
     }
 
     /* Adjust the font sizes for smaller screens */
 
     #heading {
         font-size: 1rem;
+        margin-top: 0.1rem;
     }
 
     #user-count {
