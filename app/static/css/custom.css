@@ -53,7 +53,7 @@ html, body {
     padding: 1rem;
     margin-bottom: 1rem;
 }
-
+/* Responsive Styles for devices that are not very high (tablet 90°) */
 @media (max-height: 1200px) {
     .chat-room {
         position: absolute;
@@ -72,6 +72,7 @@ html, body {
 
 }
 
+/* Responsive Styles for devices that are not very high (tablet 90°) */
 @media (max-height: 1000px) {
     .chat-room {
         position: absolute;
@@ -108,9 +109,33 @@ html, body {
     .logo {
         width: 50px; /* Smaller logo for smaller screens */
     }
+
+    /* Adjust the font sizes for smaller screens */
+
+    #heading {
+        font-size: 1rem;
+    }
+
+    #user-count {
+        font-size: 0.75rem;
+    }
+
+    #username-display {
+        font-size: 0.75rem;
+    }
+
+    /* max height for message container */
+    .message-container {
+        max-height: 500px;
+    }
+
+    .nes-container {
+        padding: 1rem;
+        border-width: 2px;
+    }
+
+
 }
-
-
 
 
 .message {
@@ -251,6 +276,7 @@ html, body {
     .nes-field.is-inline {
         flex-direction: column;
         align-items: stretch; /* Stretch the button to the width of the container */
+        max-width: 98%;
     }
 
     #nameModal {
