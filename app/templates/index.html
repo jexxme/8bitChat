@@ -36,8 +36,8 @@
   <!-- Music Control Buttons -->
   <div id="musicControlContainer" class="music-control-container">
     <button id="playPauseButton" class="music-button" onclick="togglePlayPause()">
-      <img src="{{ url_for('static', filename='images/music.png') }}" alt="Play/Pause">
-    </button>
+      <img id="playPauseImg" src="{{ url_for('static', filename='images/no_music.png') }}" alt="Play/Pause">
+  </button>  
     <button id="skipButton" class="music-button" onclick="skipTrack()">
       <img src="{{ url_for('static', filename='images/next.png') }}" alt="Skip">
     </button>
@@ -129,6 +129,24 @@
     "{{ url_for('static', filename='music/man-is-he-mega-glbml-22045.mp3') }}",
     "{{ url_for('static', filename='music/sinnesloschen-beam-117362.mp3') }}"
   ];
+</script>
+<script>
+  // Function to play or pause the music
+  function togglePlayPause() {
+    const playPauseImg = document.getElementById('playPauseImg');
+    const skipButton = document.getElementById('skipButton');
+
+    if (audioPlayer.paused) {
+        audioPlayer.play();
+        playPauseImg.src = "{{ url_for('static', filename='images/music.png') }}"; // Image when music is playing
+        skipButton.style.display = 'block'; // Show the skip button
+    } else {
+        audioPlayer.pause();
+        playPauseImg.src = "{{ url_for('static', filename='images/no_music.png') }}"; // Image when music is not playing
+        skipButton.style.display = 'none'; // Hide the skip button
+    }
+}
+
 </script>
 
 <!-- Include Socket.IO JavaScript Library -->

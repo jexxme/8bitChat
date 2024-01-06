@@ -328,6 +328,9 @@ html, body {
 
 
 
+#skipButton {
+    display: none; /* Hide the skip button initially */
+}
 
 
 #overlay {

@@ -52,18 +52,6 @@ function initializeAudioPlayer() {
     // You can add more setup here if needed
 }
 
-// Function to play or pause the music
-function togglePlayPause() {
-    if (audioPlayer.src) {
-        if (audioPlayer.paused) {
-            audioPlayer.play();
-        } else {
-            audioPlayer.pause();
-        }
-    } else {
-        console.error("No audio source found.");
-    }
-}
 
 // Call initialize function on page load or on a specific user action
 window.onload = initializeAudioPlayer;
