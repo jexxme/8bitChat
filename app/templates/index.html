@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+
 <head>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
@@ -32,6 +33,24 @@
 </head>
 
 <body data-pop-sound-url="{{ url_for('static', filename='pop.mp3') }}">
+  <!-- Music Control Buttons -->
+  <div id="musicControlContainer" class="music-control-container">
+    <button id="playPauseButton" class="music-button" onclick="togglePlayPause()">
+      <img src="{{ url_for('static', filename='images/music.png') }}" alt="Play/Pause">
+    </button>
+    <button id="skipButton" class="music-button" onclick="skipTrack()">
+      <img src="{{ url_for('static', filename='images/next.png') }}" alt="Skip">
+    </button>
+</div>
+
+
+  <!-- Audio Player -->
+  <audio id="audioPlayer" loop></audio>
+
+
+
+
+
   <button id="infoButton" class="info-button">
     <img id="infoButtonImg" src="{{ url_for('static', filename='images/info.png') }}" alt="Info">
   </button>
@@ -49,7 +68,8 @@
     </div>
     <div class="nes-field is-inline">
       <input type="text" id="message-input" class="nes-input" placeholder="Type a message..." />
-      <img id="photoButton" src="{{ url_for('static', filename='images/photo.svg') }}" class="send-button nes-pointer" alt="Send Photo" onclick="sendPhoto()">
+      <img id="photoButton" src="{{ url_for('static', filename='images/photo.svg') }}" class="send-button nes-pointer"
+        alt="Send Photo" onclick="sendPhoto()">
       <button type="button" class="nes-btn is-primary send-button" onclick="sendMessage()">Send</button>
     </div>
   </section>
@@ -84,9 +104,9 @@
       <label>
         <input type="radio" class="nes-radio" name="muteToggle" id="unmute" checked />
         <span>Unmute</span>
-      </label>      
+      </label>
       <label>
-        <input type="radio" class="nes-radio" name="muteToggle" id="mute"  />
+        <input type="radio" class="nes-radio" name="muteToggle" id="mute" />
         <span>Mute</span>
       </label>
       <h3 style="margin-top: 20px;">Legal Links</h3>
@@ -100,6 +120,16 @@
 
 </body>
 
+<script type="text/javascript">
+  // Define your tracks array with 'url_for' in an HTML file processed by Flask
+  const tracks = [
+    "{{ url_for('static', filename='music/kim-lightyear-just-a-dream-wake-up-153991.mp3') }}",
+    "{{ url_for('static', filename='music/8-bit-background-music-for-arcade-game-come-on-mario-164702.mp3') }}",
+    "{{ url_for('static', filename='music/chiptune-grooving-142242.mp3') }}",
+    "{{ url_for('static', filename='music/man-is-he-mega-glbml-22045.mp3') }}",
+    "{{ url_for('static', filename='music/sinnesloschen-beam-117362.mp3') }}"
+  ];
+</script>
 
 <!-- Include Socket.IO JavaScript Library -->
 <script src="https://cdn.socket.io/4.7.2/socket.io.min.js"
@@ -122,4 +152,6 @@
     "operatingSystem": "Any",
   }
   </script>
+
+
 </html>

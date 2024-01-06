@@ -39,6 +39,62 @@ unmuteRadio.addEventListener('change', handleAudioMute);
 // Initial mute/unmute state based on checked radio button
 handleAudioMute();
 
+// MUSIC PLAYER
+// Array of tracks to play
+let currentTrackIndex = 0;
+
+const audioPlayer = document.getElementById('audioPlayer');
+
+// Function to initialize and play the first track
+function initializeAudioPlayer() {
+    // Set the first track as the source
+    audioPlayer.src = tracks[0];
+    // You can add more setup here if needed
+}
+
+// Function to play or pause the music
+function togglePlayPause() {
+    if (audioPlayer.src) {
+        if (audioPlayer.paused) {
+            audioPlayer.play();
+        } else {
+            audioPlayer.pause();
+        }
+    } else {
+        console.error("No audio source found.");
+    }
+}
+
+// Call initialize function on page load or on a specific user action
+window.onload = initializeAudioPlayer;
+
+// Set volume to 30% on page load
+setVolume(0.3);
+
+
+function skipTrack() {
+    currentTrackIndex = (currentTrackIndex + 1) % tracks.length;
+    playTrack(currentTrackIndex);
+}
+
+
+// Set volume
+function setVolume(value) {
+    audioPlayer.volume = value;
+}
+
+function playTrack(index) {
+    if (tracks && tracks.length > 0) {
+        audioPlayer.src = tracks[index];
+        audioPlayer.play();
+    } else {
+        console.error("Track list is empty or not defined.");
+    }
+}
+
+
+
+
 function unlockAudioContext() {
     if (!audioContextUnlocked) {
         // Play and immediately pause the join sound

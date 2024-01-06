@@ -343,6 +343,36 @@ html, body {
     z-index: 2; /* Specify a stack order in case you're using a different order for other elements */
 }
 
+.music-control-container {
+    position: fixed;
+    top: 15px;
+    left: 10px;
+    z-index: 1000;
+    display: flex;
+}
+
+.music-button {
+    background-color: transparent;
+    border: none;
+}
+
+.music-button img {
+    width: 30px;
+    height: auto;
+}
+
+@media (max-width: 600px) {
+    .music-control-container {
+        top: 5px;
+        left: 5px;
+    }
+
+    .music-button img {
+        width: 20px;
+    }
+}
+
+
 
 .info-button {
     position: fixed;
